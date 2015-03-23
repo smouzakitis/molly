@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/static/css/normalize.css">
     <link rel="stylesheet" href="/static/css/foundation.css">
     <link rel="stylesheet" href="/static/css/molly.css">
-
+    <link rel="stylesheet" media="screen" href="/static/js/vendor/handsontable/handsontable.full.min.css">
     <script src="/static/js/vendor/modernizr.js"></script>
 </head>
 <body>
@@ -18,8 +18,14 @@
 		  <hr/>
         </div>
       </div>
-
-       
+	 <div class="row">
+        <div id="cmdPanel">
+            <a href="#" class="button">Normalize Data</a>
+        </div>
+     </div>
+     <div class="row">
+        <div id="hot"></div>
+     </div>
       <footer class="row">
         <div class="large-12 columns">
           <hr/>
@@ -35,8 +41,11 @@
 
   <script src="/static/js/vendor/jquery.js"></script>
   <script src="/static/js/foundation.min.js"></script>
+  <script src="/static/js/vendor/handsontable/handsontable.full.min.js"></script>
+  <script src="/static/js/molly.js"></script>     
   <script>
     $(document).foundation();
+    initMolly();
   </script>
 </body>
 </html>
