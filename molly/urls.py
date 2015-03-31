@@ -7,6 +7,7 @@ from django.conf.urls import patterns, include, url
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'molly.views.index', name='index'),
+    url(r'^ner$', 'molly.views.name_entity_recognition', name='ner'),
     # url(r'^molly/', include('molly.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

@@ -1,1 +1,4 @@
 /molly.db
+/molly/settings.py
+*.pyc
+/nextplans.txt

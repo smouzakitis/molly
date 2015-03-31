@@ -5,7 +5,7 @@
 
 function initData() {
   return [
-    ['example', '2011', '2012', '2013', '2014'],
+    ['GDP', '2011', '2012', '2013', '2014'],
     ['Greece', 10, 11, 12, 13],
     ['Italy', 20, 11, 14, 13],
     ['Austria', 30, 15, 12, 13]
@@ -32,8 +32,27 @@ function initMolly() {
 	});
 };
 
+function recognizeEntityfromText(text){
+     return $.ajax({
+		    method: "GET",
+		    url: "ner",
+	        data: {text},
+	 });
+
+};
+function jsonLength(json_data){
+//Count json length - Backward compatibility with older versions of IE
+var count = 0;
+var i;
+for (i in json_data) {
+    if (json_data.hasOwnProperty(i)) {
+        count++;
+    }
+};
+return count;
+}
 function normalizeData(){
-   //  Access Handsontable api methods by passing their names as an argument:
+   // Access Handsontable api methods by passing their names as an argument:
    var hotInstance = $("#hot").handsontable('getInstance');
    //Bind New Data to the data table
    var newData = hotInstance.getData();
@@ -45,8 +64,9 @@ function normalizeData(){
    var normalizationStartColumn = 2;
    
    //Begin the normalization procedure
-  //For each row in the old data 
-  for (i = 1; i < oldData.length; i++) {
+
+   //For each row in the old data 
+   for (i = 1; i < oldData.length; i++) {
 
        //For each column in the old data 
       for (j=1;j <oldData[i].length;j++) {
@@ -63,9 +83,23 @@ function normalizeData(){
 			//Push curRowData (1-dimension) to NewData (multi-dimension array)
 			newData.push(curRowData);
 		}
-   };
-   
-  };
-   
-   hotInstance.render();
+      };
+    };
+    // Set Headers for the columns
+    // Recognize the entity of the column types if possible
+    var headerRow = [];
+	//Call the Named Entity Recognition service and when done create the headerRow
+	$.when(recognizeEntityfromText(newData[0])).done(function(resp){
+		for (i=0;i<jsonLength(resp)-1;i++){
+		 headerRow.push(resp[i]);
+        };
+		//Push header for Value column
+		headerRow.push(oldData[0][0])
+		//Insert HeaderRow at top of the data grid
+		newData.unshift(headerRow);
+		//Render the handsontable
+        hotInstance.render();
+	});
+
+
 };
