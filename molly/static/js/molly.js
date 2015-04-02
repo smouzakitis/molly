@@ -36,7 +36,7 @@ function recognizeEntityfromText(text){
      return $.ajax({
 		    method: "GET",
 		    url: "ner",
-	        data: {text},
+	        data: {text:text},
 	 });
 
 };
@@ -100,6 +100,4 @@ function normalizeData(){
 		//Render the handsontable
         hotInstance.render();
 	});
-
-
 };
