@@ -41,7 +41,7 @@ function recognizeEntityfromText(text){
 
 };
 function jsonLength(json_data){
-//Count json length - Backward compatibility with older versions of IE
+//Count a JSON structure length - Backward compatibility with older versions of IE
 var count = 0;
 var i;
 for (i in json_data) {

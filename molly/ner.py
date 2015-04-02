@@ -2,7 +2,7 @@
 import lists
 
 def recognize(text):
-    #dummy implementation
+    #dummy NER implementation
     text = text.lower()
     recognizedEntity = 'Unknown Type'
     #Check if Country
