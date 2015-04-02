@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-
+﻿<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
@@ -12,40 +11,48 @@
     <script src="/static/js/vendor/modernizr.js"></script>
 </head>
 <body>
-      <div class="row">
+    <div class="row">
         <div class="large-12 columns">
-          <h1>Molly <small>Data Normalization</small></h1>
-		  <hr/>
+            <h1>Molly <small>Data Normalization</small></h1>
+            <hr />
         </div>
-      </div>
-	 <div class="row">
-        <div id="cmdPanel">
-            <div onclick="normalizeData()" class="button small">Normalize Data</div>
+    </div>
+    <div class="row">
+        <ul class="tabs" data-tab>
+            <li class="tab-title"><a href="#panelData">File / Data</a></li>
+            <li class="tab-title active"><a href="#panelOperations">Operations</a></li>
+        </ul>
+        <div class="tabs-content">
+            <div class="content" id="panelData">
+                <p>Import / Export of data will be placed here</p>
+            </div>
+            <div class="content active" id="panelOperations">
+                 <div onclick="normalizeData()" class="button small">Normalize Data</div>
+            </div>
         </div>
-     </div>
-     <div class="row">
+    </div>
+    <div class="row">
         <div id="hot"></div>
-     </div>
-      <footer class="row">
+    </div>
+    <footer class="row">
         <div class="large-12 columns">
-          <hr/>
-          <div class="row">
-            <div class="large-6 columns">
-              <p>© Spiros Mouzakitis - LinDA Project</p>
+            <hr />
+            <div class="row">
+                <div class="large-6 columns">
+                    <p>© Spiros Mouzakitis - LinDA Project</p>
+                </div>
+                <div class="large-6 columns">
+                </div>
             </div>
-            <div class="large-6 columns">
-            </div>
-          </div>
         </div>
-      </footer>
-
-  <script src="/static/js/vendor/jquery.js"></script>
-  <script src="/static/js/foundation.min.js"></script>
-  <script src="/static/js/vendor/handsontable/handsontable.full.min.js"></script>
-  <script src="/static/js/molly.js"></script>     
-  <script>
-    $(document).foundation();
-    initMolly();
-  </script>
+    </footer>
+    <script src="/static/js/vendor/jquery.js"></script>
+    <script src="/static/js/foundation.min.js"></script>
+    <script src="/static/js/vendor/handsontable/handsontable.full.min.js"></script>
+    <script src="/static/js/molly.js"></script>
+    <script>
+        $(document).foundation();
+        initMolly();
+    </script>
 </body>
 </html>
