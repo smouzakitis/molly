@@ -11,15 +11,15 @@
     <script src="/static/js/vendor/modernizr.js"></script>
 </head>
 <body>
-    <div class="row">
+    <div  class="row">
         <div class="large-12 columns">
             <h1>Molly <small>Data Normalization</small></h1>
-            <hr />
         </div>
     </div>
-    <div class="row">
-        <ul class="tabs" data-tab>
-            <li class="tab-title"><a href="#panelData">File / Data</a></li>
+    <div id="abovePanel" class="row">
+	<hr/>
+        <ul id="ribbon" class="tabs" data-tab>
+            <li class="tab-title"><a href="#panelData">Data</a></li>
             <li class="tab-title active"><a href="#panelOperations">Operations</a></li>
         </ul>
         <div class="tabs-content">
@@ -27,7 +27,11 @@
                 <p>Import / Export of data will be placed here</p>
             </div>
             <div class="content active" id="panelOperations">
-                 <div onclick="normalizeData()" class="button small">Normalize Data</div>
+			<ul class="small-block-grid-8">
+			  <li><div class="btn-ribbon text-center"><img src="/static/img/icon_undo.png" onclick="undoOperation()" class="small"/><div class="btn-ribbon-text">Undo</div></div></li>
+			  <li><div class="btn-ribbon text-center"><img src="/static/img/icon_normalize.png" onclick="normalizeData()" class="small"/><div class="btn-ribbon-text">Normalize Data</div></div></li>
+			</ul>
+                  
             </div>
         </div>
     </div>

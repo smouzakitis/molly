@@ -1,3 +1,51 @@
 #hot {
     overflow-x:scroll;
 }
+#abovePanel hr {
+  border-color:#cdac6a;
+  margin: 1.25rem 0 0rem;
+}
+#ribbon {
+    background-color:#e1e1e1;
+}
+#ribbon.tabs dd > a, #ribbon.tabs .tab-title > a{
+    font-size:0.75rem;
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+}
+#ribbon .tab-title.active a  {
+  color:#cdac6a;
+}
+
+#abovePanel .tabs-content > .content.active {
+  display: block;
+  float: none;
+  border-bottom-color:rgb(225, 225, 225);
+  border-bottom-width:0.0625em;
+  border-bottom-style:solid;
+}
+#abovePanel .tabs-content > .content{
+  padding: 0.5rem 0 0 0;
+}
+
+#abovePanel [class*="block-grid-"] > li {
+  padding: 0 0.625rem 0rem;
+  border-right-color:rgb(225, 225, 225);
+  border-right-width:0.0625em;
+  border-right-style:solid;
+}
+#abovePanel .tabs-content {
+margin-bottom: 0.3rem;
+}
+.btn-ribbon {
+ cursor:pointer;
+ transition: all 0.3s ease-in;
+ text-decoration:none;
+}
+.btn-ribbon:hover{
+background-color:#cdac6a;
+color:white;
+}
+.btn-ribbon-text{
+  font-size:0.8rem;
+}
