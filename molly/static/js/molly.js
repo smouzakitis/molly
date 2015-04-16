@@ -73,7 +73,7 @@ function normalizeData(){
         
         //Create a temporary array (curRowData) that represents a row in the New Data
         var curRowData =[];
-		if (oldData[i][j]!= null) {
+		if ((oldData[i][j]!= null)&&(oldData[i][j]!= '')) {
 			//Push row label (e.g. Country name in the example) 
 			curRowData.push(oldData[i][0]);
 			//Push column label (e.g. Current year in the example) 
