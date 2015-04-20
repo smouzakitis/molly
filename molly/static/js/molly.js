@@ -51,20 +51,40 @@ for (i in json_data) {
 };
 return count;
 }
+
+function countNonEmptyCols(data){
+  var counter = 0;
+  for (i = 0; i < 1; i++) {
+	  for(j=0;j<data[i].length;j++)
+       if ((data[i][j] != null) && (data[i][j].trim() != ''))
+		   counter++;
+  };
+  return counter;
+}
+
 function normalizeData(){
+
    // Access Handsontable api methods by passing their names as an argument:
    var hotInstance = $("#hot").handsontable('getInstance');
    //Bind New Data to the data table
    var newData = hotInstance.getData();
    //Clone current values of the data table in an old data array.
    var oldData = JSON.parse(JSON.stringify(newData));
+
+   // Should the system ProceedWithNormalization boolean
+   var bProceedWithNormalization = true;
+   //Check if normalize data makes sense (more than 3 columns)
+   if (countNonEmptyCols(oldData) <= 3) {
+	   bProceedWithNormalization = window.confirm("You have less than 3 columns.Are you sure to proceed with normalization?")
+	};
+	
+	if (bProceedWithNormalization) {
+   //Begin the normalization procedure
    //Clear new Data
-   newData.length=0;
+   newData.length = 0;
    //Set the column where normalization should take place
    var normalizationStartColumn = 2;
    
-   //Begin the normalization procedure
-
    //For each row in the old data 
    for (i = 1; i < oldData.length; i++) {
 
@@ -100,4 +120,8 @@ function normalizeData(){
 		//Render the handsontable
         hotInstance.render();
 	});
+
+//End of check if normalization makes sense (columns >3)
+};
+
 };
