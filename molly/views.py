@@ -15,6 +15,6 @@ def name_entity_recognition(request):
         i=0
         for text in input_text_array:
             #Recognize all strings / texts contained in the array
-            data[i] = ner.recognize(text)
+            data[i] = ner.recognize(text.strip())
             i+=1
         return HttpResponse(json.dumps(data), content_type = "application/json")
