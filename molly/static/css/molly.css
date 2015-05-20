@@ -49,3 +49,11 @@ color:white;
 .btn-ribbon-text{
   font-size:0.8rem;
 }
+
+.btn-disabled{
+  color:#EEEEEE;
+}
+
+.img-disabled{
+    opacity: 0.4;
+}

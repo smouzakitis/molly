@@ -28,7 +28,7 @@
             </div>
             <div class="content active" id="panelOperations">
 			<ul class="small-block-grid-8">
-			  <li><div id="undoBtn" class="btn-ribbon text-center" onclick="undoOperation()"><img src="/static/img/icon_undo.png"  class="small"/><div id="btn-undo-text" class="btn-ribbon-text">Undo</div></div></li>
+			  <li><div id="revertBtn" class="btn-ribbon text-center btn-disabled"><img id="img-revert" src="/static/img/icon_undo.png"  class="small img-disabled"/><div id="btn-undo-text" class="btn-ribbon-text">Revert Operation</div></div></li>
 			  <li><div class="btn-ribbon text-center" onclick="normalizeData()"><img src="/static/img/icon_normalize.png"  class="small"/><div class="btn-ribbon-text">Normalize Data</div></div></li>
 			</ul>
                   
@@ -53,10 +53,10 @@
     <script src="/static/js/vendor/jquery.js"></script>
     <script src="/static/js/foundation.min.js"></script>
     <script src="/static/js/vendor/handsontable/handsontable.full.min.js"></script>
-    <script src="/static/js/molly.js"></script>
+	<script src="/static/js/molly.js"></script>
     <script>
         $(document).foundation();
-        initMolly();
+		initMolly();
     </script>
 </body>
 </html>

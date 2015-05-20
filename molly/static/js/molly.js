@@ -2,8 +2,28 @@
  * Molly Library
  * Copyright 2015, Mouzakitis Spiros
  */
-function undoOperation() {
-    $("#hot").handsontable('getInstance').undo();
+var isRevertOperationActive = false;
+var oldData;
+function revertOperation() {
+    var hotInstance = $("#hot").handsontable('getInstance');
+    var newData = hotInstance.getData();
+    //Clear new Data
+    newData.length = 0;
+    //Performance check
+    for (var i = 0; i < oldData.length; i++)
+      newData[i] = oldData[i].slice();
+    hotInstance.render();
+    deactivateRevertOperation();
+}
+function activateRevertOperation(){
+    $("#revertBtn").bind( "click",revertOperation);
+    $("#revertBtn").removeClass("btn-disabled");
+    $("#img-revert").removeClass("img-disabled");
+}
+function deactivateRevertOperation(){
+	$("#revertBtn").unbind("click");
+	$("#revertBtn").addClass("btn-disabled");
+    $("#img-revert").addClass("img-disabled");
 }
 
 function initData() {
@@ -19,7 +39,6 @@ function initMolly() {
     // Instead of creating a new Handsontable instance with the container element passed as an argument,
     // you can simply call .handsontable method on a jQuery DOM object.
     var $container = $("#hot");
-
     $container.handsontable({
         data: initData(),
         startRows: 20,
@@ -76,7 +95,7 @@ function normalizeData() {
     //Bind New Data to the data table
     var newData = hotInstance.getData();
     //Clone current values of the data table in an old data array.
-    var oldData = JSON.parse(JSON.stringify(newData));
+    oldData = JSON.parse(JSON.stringify(newData));
 
     // Should the system ProceedWithNormalization boolean
     var bProceedWithNormalization = true;
@@ -87,6 +106,7 @@ function normalizeData() {
 
     if (bProceedWithNormalization) {
         //Begin the normalization procedure
+        activateRevertOperation();
         //Clear new Data
         newData.length = 0;
         //Set the column where normalization should take place
@@ -130,5 +150,4 @@ function normalizeData() {
 
         //End of check if normalization makes sense (columns >3)
     };
-
 };
