@@ -16,6 +16,9 @@ def recognize(text):
            recognizedEntity = 'Year'
            return recognizedEntity;
     #Check if Date
+    try:
     if (lists.is_date(text)) :
           recognizedEntity = 'Date'
+    except: 
+          recognizedEntity = 'Unknown Type'
     return recognizedEntity;
