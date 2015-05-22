@@ -16,6 +16,7 @@
             <h1>Molly <small>Data Normalization</small></h1>
         </div>
     </div>
+	
     <div id="abovePanel" class="row">
 	<hr/>
         <ul id="ribbon" class="tabs" data-tab>
@@ -24,8 +25,9 @@
         </ul>
         <div class="tabs-content">
             <div class="content" id="panelData">
+
 			<ul class="small-block-grid-8">
-			  <li><div class="btn-ribbon text-center" onclick="importData()"><img src="/static/img/icon_import.png"  class="small"/><div class="btn-ribbon-text">Import data</div></div></li>
+			  <li><div class="btn-ribbon text-center" onclick="$('input').click();"><img src="/static/img/icon_import.png"  class="small"/><div class="btn-ribbon-text">Import data</div></div>	<input id="importfile" class="hidden-input" name="importfile[importfile]" type="file"></li>
 			</ul>
             </div>
             <div class="content active" id="panelOperations">
@@ -55,6 +57,7 @@
     <script src="/static/js/vendor/jquery.js"></script>
     <script src="/static/js/foundation.min.js"></script>
     <script src="/static/js/vendor/handsontable/handsontable.full.min.js"></script>
+    <script src="/static/js/vendor/PapaParse/papaparse.min.js"></script>
 	<script src="/static/js/molly.js"></script>
     <script>
         $(document).foundation();

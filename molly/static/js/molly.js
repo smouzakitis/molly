@@ -52,6 +52,11 @@ function initMolly() {
         minSpareRows: 1,
         contextMenu: true
     });
+    //Set event handling when someone selects a file
+	$("#importfile").change(function () {
+    alert($(this).val());
+	importData();
+   });
 
 };
 
@@ -66,6 +71,38 @@ function recognizeEntityfromText(text) {
 
 };
 
+function importData() {
+	$('input[type=file]').parse({
+	config: {
+		// base config to use for each file
+		complete: function(results, file) {
+			console.log(results.data[0]);
+			var hotInstance = $("#hot").handsontable('getInstance');
+            var newData = hotInstance.getData();
+		    //Clear new Data
+           newData.length = 0;
+           //Performance check
+           for (var i = 0; i < results.data.length; i++)
+             newData[i] = results.data[i].slice();
+           hotInstance.render();
+		}
+	},
+	before: function(file, inputElem)
+	{
+		// executed before parsing each file begins;
+		// what you return here controls the flow
+	},
+	error: function(err, file, inputElem, reason)
+	{
+		// executed if an error occurs while loading the file,
+		// or if before callback aborted for some reason
+	},
+	complete: function()
+	{
+	}
+});
+
+}
 function jsonLength(json_data) {
     //Count a JSON structure length - Backward compatibility with older versions of IE
     var count = 0;
