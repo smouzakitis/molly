@@ -94,17 +94,17 @@ function normalizeData() {
     var hotInstance = $("#hot").handsontable('getInstance');
     //Bind New Data to the data table
     var newData = hotInstance.getData();
-    //Clone current values of the data table in an old data array.
-    oldData = JSON.parse(JSON.stringify(newData));
 
     // Should the system ProceedWithNormalization boolean
     var bProceedWithNormalization = true;
     //Check if normalize data makes sense (more than 3 columns)
-    if (countNonEmptyCols(oldData) <= 3) {
+    if (countNonEmptyCols(newData) <= 3) {
         bProceedWithNormalization = window.confirm("You have less than 3 columns.Are you sure to proceed with normalization?")
     };
 
     if (bProceedWithNormalization) {
+        //Clone current values of the data table in an old data array.
+         oldData = JSON.parse(JSON.stringify(newData));
         //Begin the normalization procedure
         activateRevertOperation();
         //Clear new Data
