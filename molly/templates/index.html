@@ -28,6 +28,14 @@
 
 			<ul class="small-block-grid-8">
 			  <li><div class="btn-ribbon text-center" onclick="$('input').click();"><img src="/static/img/icon_import.png"  class="small"/><div class="btn-ribbon-text">Import data</div></div>	<input id="importfile" class="hidden-input" name="importfile[importfile]" type="file"></li>
+			<div id="myModalSelectSheet" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+			  <h2 id="modalTitle">Select worksheet to import</h2>
+				<select id="myModalSelectSheetBox">
+				  <option value="value">Worksheet</option>
+				</select>
+				<a id="btn-select-sheet" href="#" class="button">Done</a>
+			  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+			</div>
 			</ul>
             </div>
             <div class="content active" id="panelOperations">
@@ -58,6 +66,7 @@
     <script src="/static/js/foundation.min.js"></script>
     <script src="/static/js/vendor/handsontable/handsontable.full.min.js"></script>
     <script src="/static/js/vendor/PapaParse/papaparse.min.js"></script>
+	<script src="/static/js/vendor/sheetJS/xlsx.core.min.js"></script>
 	<script src="/static/js/molly.js"></script>
     <script>
         $(document).foundation();

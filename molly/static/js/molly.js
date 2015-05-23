@@ -26,53 +26,41 @@ function deactivateRevertOperation(){
     $("#img-revert").addClass("img-disabled");
 }
 
-function initData() {
-    return [
-        ['GDP', '2011', '2012', '2013', '2014'],
-        ['Greece', 10, 11, 12, 13],
-        ['Italy', 20, 11, 14, 13],
-        ['Austria', 30, 15, 12, 13]
-    ];
+function hasExtension(inputID, exts) {
+    var fileName = document.getElementById(inputID).value;
+    return (new RegExp('(' + exts.join('|').replace(/\./g, '\\.') + ')$')).test(fileName);
 }
 
-function initMolly() {
-    // Instead of creating a new Handsontable instance with the container element passed as an argument,
-    // you can simply call .handsontable method on a jQuery DOM object.
-    var $container = $("#hot");
-    $container.handsontable({
-        data: initData(),
-        startRows: 20,
-        startCols: 20,
-        minRows: 20,
-        minCols: 20,
-        maxRows: 50000,
-        maxCols: 300,
-        rowHeaders: true,
-        colHeaders: true,
-        minSpareRows: 1,
-        contextMenu: true
-    });
-    //Set event handling when someone selects a file
-	$("#importfile").change(function () {
-    alert($(this).val());
-	importData();
-   });
+//Import XLS file
+function handleFile(e) {
+if (hasExtension('importfile', ['.xls', '.xlsx'])) {
+    // ... block upload
+  var files = e.target.files;
+  var i,f;
+  for (i = 0, f = files[i]; i != files.length; ++i) {
+    var reader = new FileReader();
+    var name = f.name;
+    reader.onload = function(e) {
+			  var data = e.target.result;
 
-};
+			  var workbook = XLSX.read(data, {type: 'binary'});
+			  
+		/* DO SOMETHING WITH workbook HERE */
+		$('#myModalSelectSheetBox').empty();
+		// Get the SheetNames on the select modal dialog box
+		for (l = 0; l != workbook.SheetNames.length; ++l){
+			var option = $('<option></option>').attr("value", l).text(workbook.SheetNames[l]);
+			$('#myModalSelectSheetBox').append(option);
+		}
+		$('#btn-select-sheet').bind( "click", function() {importXLSSheet(e);});
+		$('#myModalSelectSheet').foundation('reveal','open');
+    };
+    reader.readAsBinaryString(f);
+  }
+  }
 
-function recognizeEntityfromText(text) {
-    return $.ajax({
-        method: "GET",
-        url: "ner",
-        data: {
-            text: text
-        },
-    });
-
-};
-
-function importData() {
-	$('input[type=file]').parse({
+else if (hasExtension('importfile', ['.csv'])) {
+  	$('input[type=file]').parse({
 	config: {
 		// base config to use for each file
 		complete: function(results, file) {
@@ -101,6 +89,80 @@ function importData() {
 	{
 	}
 });
+
+}
+else {
+	alert('This file is not supported for import. Only CSV and Excel files are supported');
+}
+}
+
+function importXLSSheet(e) {
+	$('#myModalSelectSheet').foundation('reveal','close');
+              var data = e.target.result;
+			  var workbook = XLSX.read(data, {type: 'binary'});
+			  var selected_sheet = $( "#myModalSelectSheetBox option:selected" ).val();
+			  /* Parse XLS sheet */
+			  xlsresults = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[selected_sheet]]);
+			var hotInstance = $("#hot").handsontable('getInstance');
+            var newData = hotInstance.getData();
+		    //Clear new Data
+           newData.length = 0;
+           // Copy parsed XLS results to handsontable
+           for (var i = 0; i < xlsresults.length; i++)
+             newData[i] =  $.map(xlsresults[i], function(el) { return el; });
+           hotInstance.render();
+}
+
+function initData() {
+    return [
+        ['GDP', '2011', '2012', '2013', '2014'],
+        ['Greece', 10, 11, 12, 13],
+        ['Italy', 20, 11, 14, 13],
+        ['Austria', 30, 15, 12, 13]
+    ];
+}
+
+function initMolly() {
+    // Instead of creating a new Handsontable instance with the container element passed as an argument,
+    // you can simply call .handsontable method on a jQuery DOM object.
+    var $container = $("#hot");
+    $container.handsontable({
+        data: initData(),
+        startRows: 20,
+        startCols: 20,
+        minRows: 20,
+        minCols: 20,
+        maxRows: 50000,
+        maxCols: 300,
+        rowHeaders: true,
+        colHeaders: true,
+        minSpareRows: 1,
+        contextMenu: true
+    });
+    //Set event handling when someone selects a file
+	//$("#importfile").change(function () {
+    //alert($(this).val());
+	//importData(this);
+   //});
+   var xlf = document.getElementById('importfile');
+   if(xlf.addEventListener) xlf.addEventListener('change', handleFile, false);
+};
+
+function recognizeEntityfromText(text) {
+    return $.ajax({
+        method: "GET",
+        url: "ner",
+        data: {
+            text: text
+        },
+    });
+
+};
+
+
+function importData(file) {
+	
+ 
 
 }
 function jsonLength(json_data) {
