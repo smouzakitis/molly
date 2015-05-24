@@ -64,7 +64,6 @@ else if (hasExtension('importfile', ['.csv'])) {
 	config: {
 		// base config to use for each file
 		complete: function(results, file) {
-			console.log(results.data[0]);
 			var hotInstance = $("#hot").handsontable('getInstance');
             var newData = hotInstance.getData();
 		    //Clear new Data
@@ -102,14 +101,14 @@ function importXLSSheet(e) {
 			  var workbook = XLSX.read(data, {type: 'binary'});
 			  var selected_sheet = $( "#myModalSelectSheetBox option:selected" ).val();
 			  /* Parse XLS sheet */
-			  xlsresults = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[selected_sheet]]);
+			 xlsresults = Papa.parse(XLSX.utils.sheet_to_csv(workbook.Sheets[workbook.SheetNames[selected_sheet]]));
 			var hotInstance = $("#hot").handsontable('getInstance');
             var newData = hotInstance.getData();
 		    //Clear new Data
            newData.length = 0;
            // Copy parsed XLS results to handsontable
-           for (var i = 0; i < xlsresults.length; i++)
-             newData[i] =  $.map(xlsresults[i], function(el) { return el; });
+           for (var i = 0; i < xlsresults.data.length; i++)
+             newData[i] = xlsresults.data[i].slice();
            hotInstance.render();
 }
 
@@ -140,10 +139,6 @@ function initMolly() {
         contextMenu: true
     });
     //Set event handling when someone selects a file
-	//$("#importfile").change(function () {
-    //alert($(this).val());
-	//importData(this);
-   //});
    var xlf = document.getElementById('importfile');
    if(xlf.addEventListener) xlf.addEventListener('change', handleFile, false);
 };
@@ -160,11 +155,6 @@ function recognizeEntityfromText(text) {
 };
 
 
-function importData(file) {
-	
- 
-
-}
 function jsonLength(json_data) {
     //Count a JSON structure length - Backward compatibility with older versions of IE
     var count = 0;
