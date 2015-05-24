@@ -11,14 +11,14 @@
     <script src="/static/js/vendor/modernizr.js"></script>
 </head>
 <body>
-    <div  class="row">
+    <div class="row">
         <div class="large-12 columns">
             <h1>Molly <small>Data Normalization</small></h1>
         </div>
     </div>
-	
+
     <div id="abovePanel" class="row">
-	<hr/>
+        <hr />
         <ul id="ribbon" class="tabs" data-tab>
             <li class="tab-title"><a href="#panelData">Data</a></li>
             <li class="tab-title active"><a href="#panelOperations">Operations</a></li>
@@ -26,24 +26,24 @@
         <div class="tabs-content">
             <div class="content" id="panelData">
 
-			<ul class="small-block-grid-8">
-			  <li><div class="btn-ribbon text-center" onclick="$('input').click();"><img src="/static/img/icon_import.png"  class="small"/><div class="btn-ribbon-text">Import data</div></div>	<input id="importfile" class="hidden-input" name="importfile[importfile]" type="file"></li>
-			<div id="myModalSelectSheet" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-			  <h2 id="modalTitle">Select worksheet to import</h2>
-				<select id="myModalSelectSheetBox">
-				  <option value="value">Worksheet</option>
-				</select>
-				<a id="btn-select-sheet" href="#" class="button">Done</a>
-			  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
-			</div>
-			</ul>
+                <ul class="small-block-grid-8">
+                    <li><div class="btn-ribbon text-center" onclick="$('input').click();"><img src="/static/img/icon_import.png" class="small" /><div class="btn-ribbon-text">Import data</div></div>	<input id="importfile" class="hidden-input" name="importfile[importfile]" type="file"></li>
+                    <div id="myModalSelectSheet" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+                        <h2 id="modalTitle">Select worksheet to import</h2>
+                        <select id="myModalSelectSheetBox">
+                            <option value="value">Worksheet</option>
+                        </select>
+                        <a id="btn-select-sheet" href="#" class="button">Done</a>
+                        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+                    </div>
+                </ul>
             </div>
             <div class="content active" id="panelOperations">
-			<ul class="small-block-grid-8">
-			  <li><div id="revertBtn" class="btn-ribbon text-center btn-disabled"><img id="img-revert" src="/static/img/icon_undo.png"  class="small img-disabled"/><div id="btn-undo-text" class="btn-ribbon-text">Revert Operation</div></div></li>
-			  <li><div class="btn-ribbon text-center" onclick="normalizeData()"><img src="/static/img/icon_normalize.png"  class="small"/><div class="btn-ribbon-text">Normalize Data</div></div></li>
-			</ul>
-                  
+                <ul class="small-block-grid-8">
+                    <li><div id="revertBtn" class="btn-ribbon text-center btn-disabled"><img id="img-revert" src="/static/img/icon_undo.png" class="small img-disabled" /><div id="btn-undo-text" class="btn-ribbon-text">Revert Operation</div></div></li>
+                    <li><div class="btn-ribbon text-center" onclick="normalizeData()"><img src="/static/img/icon_normalize.png" class="small" /><div class="btn-ribbon-text">Normalize Data</div></div></li>
+                </ul>
+
             </div>
         </div>
     </div>
@@ -66,11 +66,11 @@
     <script src="/static/js/foundation.min.js"></script>
     <script src="/static/js/vendor/handsontable/handsontable.full.min.js"></script>
     <script src="/static/js/vendor/PapaParse/papaparse.min.js"></script>
-	<script src="/static/js/vendor/sheetJS/xlsx.core.min.js"></script>
-	<script src="/static/js/molly.js"></script>
+    <script src="/static/js/vendor/sheetJS/xlsx.core.min.js"></script>
+    <script src="/static/js/molly.js"></script>
     <script>
         $(document).foundation();
-		initMolly();
+        initMolly();
     </script>
 </body>
 </html>

@@ -11,18 +11,18 @@ function revertOperation() {
     newData.length = 0;
     //Performance check
     for (var i = 0; i < oldData.length; i++)
-      newData[i] = oldData[i].slice();
+        newData[i] = oldData[i].slice();
     hotInstance.render();
     deactivateRevertOperation();
 }
-function activateRevertOperation(){
-    $("#revertBtn").bind( "click",revertOperation);
+function activateRevertOperation() {
+    $("#revertBtn").bind("click", revertOperation);
     $("#revertBtn").removeClass("btn-disabled");
     $("#img-revert").removeClass("img-disabled");
 }
-function deactivateRevertOperation(){
-	$("#revertBtn").unbind("click");
-	$("#revertBtn").addClass("btn-disabled");
+function deactivateRevertOperation() {
+    $("#revertBtn").unbind("click");
+    $("#revertBtn").addClass("btn-disabled");
     $("#img-revert").addClass("img-disabled");
 }
 
@@ -33,83 +33,80 @@ function hasExtension(inputID, exts) {
 
 //Import XLS file
 function handleFile(e) {
-if (hasExtension('importfile', ['.xls', '.xlsx'])) {
-    // ... block upload
-  var files = e.target.files;
-  var i,f;
-  for (i = 0, f = files[i]; i != files.length; ++i) {
-    var reader = new FileReader();
-    var name = f.name;
-    reader.onload = function(e) {
-			  var data = e.target.result;
+    if (hasExtension('importfile', ['.xls', '.xlsx'])) {
+        // ... block upload
+        var files = e.target.files;
+        var i, f;
+        for (i = 0, f = files[i]; i != files.length; ++i) {
+            var reader = new FileReader();
+            var name = f.name;
+            reader.onload = function (e) {
+                var data = e.target.result;
 
-			  var workbook = XLSX.read(data, {type: 'binary'});
-			  
-		/* DO SOMETHING WITH workbook HERE */
-		$('#myModalSelectSheetBox').empty();
-		// Get the SheetNames on the select modal dialog box
-		for (l = 0; l != workbook.SheetNames.length; ++l){
-			var option = $('<option></option>').attr("value", l).text(workbook.SheetNames[l]);
-			$('#myModalSelectSheetBox').append(option);
-		}
-		$('#btn-select-sheet').bind( "click", function() {importXLSSheet(e);});
-		$('#myModalSelectSheet').foundation('reveal','open');
-    };
-    reader.readAsBinaryString(f);
-  }
-  }
+                var workbook = XLSX.read(data, { type: 'binary' });
 
-else if (hasExtension('importfile', ['.csv'])) {
-  	$('input[type=file]').parse({
-	config: {
-		// base config to use for each file
-		complete: function(results, file) {
-			var hotInstance = $("#hot").handsontable('getInstance');
-            var newData = hotInstance.getData();
-		    //Clear new Data
-           newData.length = 0;
-           //Performance check
-           for (var i = 0; i < results.data.length; i++)
-             newData[i] = results.data[i].slice();
-           hotInstance.render();
-		}
-	},
-	before: function(file, inputElem)
-	{
-		// executed before parsing each file begins;
-		// what you return here controls the flow
-	},
-	error: function(err, file, inputElem, reason)
-	{
-		// executed if an error occurs while loading the file,
-		// or if before callback aborted for some reason
-	},
-	complete: function()
-	{
-	}
-});
+                /* DO SOMETHING WITH workbook HERE */
+                $('#myModalSelectSheetBox').empty();
+                // Get the SheetNames on the select modal dialog box
+                for (l = 0; l != workbook.SheetNames.length; ++l) {
+                    var option = $('<option></option>').attr("value", l).text(workbook.SheetNames[l]);
+                    $('#myModalSelectSheetBox').append(option);
+                }
+                $('#btn-select-sheet').bind("click", function () { importXLSSheet(e); });
+                $('#myModalSelectSheet').foundation('reveal', 'open');
+            };
+            reader.readAsBinaryString(f);
+        }
+    }
 
-}
-else {
-	alert('This file is not supported for import. Only CSV and Excel files are supported');
-}
+    else if (hasExtension('importfile', ['.csv'])) {
+        $('input[type=file]').parse({
+            config: {
+                // base config to use for each file
+                complete: function (results, file) {
+                    var hotInstance = $("#hot").handsontable('getInstance');
+                    var newData = hotInstance.getData();
+                    //Clear new Data
+                    newData.length = 0;
+                    //Performance check
+                    for (var i = 0; i < results.data.length; i++)
+                        newData[i] = results.data[i].slice();
+                    hotInstance.render();
+                }
+            },
+            before: function (file, inputElem) {
+                // executed before parsing each file begins;
+                // what you return here controls the flow
+            },
+            error: function (err, file, inputElem, reason) {
+                // executed if an error occurs while loading the file,
+                // or if before callback aborted for some reason
+            },
+            complete: function () {
+            }
+        });
+
+    }
+    else {
+        alert('This file is not supported for import. Only CSV and Excel files are supported');
+    }
 }
 
 function importXLSSheet(e) {
-	$('#myModalSelectSheet').foundation('reveal','close');
-              var data = e.target.result;
-			  var workbook = XLSX.read(data, {type: 'binary'});
-			  var selected_sheet = $( "#myModalSelectSheetBox option:selected" ).val();
-			  /* Parse XLS sheet */
-			 xlsresults = Papa.parse(XLSX.utils.sheet_to_csv(workbook.Sheets[workbook.SheetNames[selected_sheet]]));
-			var hotInstance = $("#hot").handsontable('getInstance');
-            var newData = hotInstance.getData();
-		    //Clear new Data
-           newData.length = 0;
-           // Copy parsed XLS results to handsontable
-           for (var i = 0; i < xlsresults.data.length; i++)
-             newData[i] = xlsresults.data[i].slice();
-           hotInstance.render();
+    $('#myModalSelectSheet').foundation('reveal', 'close');
+    var data = e.target.result;
+    var workbook = XLSX.read(data, { type: 'binary' });
+    var selected_sheet = $("#myModalSelectSheetBox option:selected").val();
+    /* Parse XLS sheet */
+    xlsresults = Papa.parse(XLSX.utils.sheet_to_csv(workbook.Sheets[workbook.SheetNames[selected_sheet]]));
+    var hotInstance = $("#hot").handsontable('getInstance');
+    var newData = hotInstance.getData();
+    //Clear new Data
+    newData.length = 0;
+    // Copy parsed XLS results to handsontable
+    for (var i = 0; i < xlsresults.data.length; i++)
+        newData[i] = xlsresults.data[i].slice();
+    hotInstance.render();
 }
 
 function initData() {
@@ -139,8 +136,8 @@ function initMolly() {
         contextMenu: true
     });
     //Set event handling when someone selects a file
-   var xlf = document.getElementById('importfile');
-   if(xlf.addEventListener) xlf.addEventListener('change', handleFile, false);
+    var xlf = document.getElementById('importfile');
+    if (xlf.addEventListener) xlf.addEventListener('change', handleFile, false);
 };
 
 function recognizeEntityfromText(text) {
@@ -193,7 +190,7 @@ function normalizeData() {
 
     if (bProceedWithNormalization) {
         //Clone current values of the data table in an old data array.
-         oldData = JSON.parse(JSON.stringify(newData));
+        oldData = JSON.parse(JSON.stringify(newData));
         //Begin the normalization procedure
         activateRevertOperation();
         //Clear new Data
@@ -225,13 +222,13 @@ function normalizeData() {
         // Recognize the entity of the column types if possible
         var headerRow = [];
         //Call the Named Entity Recognition service and when done create the headerRow
-        $.when(recognizeEntityfromText(newData[0])).done(function(resp) {
+        $.when(recognizeEntityfromText(newData[0])).done(function (resp) {
             for (i = 0; i < jsonLength(resp) - 1; i++) {
                 headerRow.push(resp[i]);
             };
             //Push header for Value column
             headerRow.push(oldData[0][0])
-                //Insert HeaderRow at top of the data grid
+            //Insert HeaderRow at top of the data grid
             newData.unshift(headerRow);
             //Render the handsontable
             hotInstance.render();
